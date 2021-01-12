@@ -10,9 +10,10 @@ import javax.ws.rs.core.Application;
 
 @Path("/credit")
 public class CreditApply {
-	private int ssn;
+	int id;
 	private String firstName;
 	private String lastName;
+	private int ssn;
 	private int annual_income;
 	
 	public CreditApply() {
@@ -21,15 +22,31 @@ public class CreditApply {
 	}
 
 
-	public CreditApply(int ssn, String firstName, String lastName, int annual_income) {
+	public CreditApply(int id) {
 		super();
-		this.ssn = ssn;
+		this.id = id;
+	}
+
+	
+	public CreditApply(int id, String firstName, String lastName, int ssn, int annual_income) {
+		super();
+		this.id = id;
 		this.firstName = firstName;
 		this.lastName = lastName;
+		this.ssn = ssn;
 		this.annual_income = annual_income;
 	}
 
+	public int getId() {
+		return id;
+	}
 
+
+	public void setId(int id) {
+		this.id = id;
+	}
+	
+	
 	public String getFirstName() {
 		return firstName;
 	}
@@ -49,6 +66,25 @@ public class CreditApply {
 		this.lastName = lastName;
 	}
 
+	public int getSsn() {
+		return ssn;
+	}
+
+
+	public void setSsn(int ssn) {
+		this.ssn = ssn;
+	}
+
+
+	public int getAnnual_income() {
+		return annual_income;
+	}
+
+
+	public void setAnnual_income(int annual_income) {
+		this.annual_income = annual_income;
+	}
+
 
 	@Override
 	public int hashCode() {
@@ -56,6 +92,7 @@ public class CreditApply {
 		int result = 1;
 		result = prime * result + annual_income;
 		result = prime * result + ((firstName == null) ? 0 : firstName.hashCode());
+		result = prime * result + id;
 		result = prime * result + ((lastName == null) ? 0 : lastName.hashCode());
 		result = prime * result + ssn;
 		return result;
@@ -78,6 +115,8 @@ public class CreditApply {
 				return false;
 		} else if (!firstName.equals(other.firstName))
 			return false;
+		if (id != other.id)
+			return false;
 		if (lastName == null) {
 			if (other.lastName != null)
 				return false;
@@ -89,26 +128,6 @@ public class CreditApply {
 	}
 
 
-	public int getSsn() {
-		return ssn;
-	}
-
-
-	public void setSsn(int ssn) {
-		this.ssn = ssn;
-	}
-
-
-	public int getAnnual_income() {
-		return annual_income;
-	}
-
-
-	public void setAnnual_income(int annual_income) {
-		this.annual_income = annual_income;
-	}
-
-
 	@GET
 	@Produces(MediaType.TEXT_XML)
 	public String sayServerResponse() {
@@ -117,12 +136,6 @@ public class CreditApply {
 		return resource;
 	}
 
-	@GET
-	@Produces(MediaType.APPLICATION_JSON)
-	public String sayHelloJSON() {
-		String resource = null;
-		return resource;
-	}
 
 	@GET
 	@Produces(MediaType.TEXT_HTML)
